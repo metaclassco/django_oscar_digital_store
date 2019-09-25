@@ -1,4 +1,5 @@
 import os
+from oscar.defaults import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,49 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+
+    'oscar',
+    'oscar.apps.analytics',
+    'oscar.apps.checkout',
+    'oscar.apps.address',
+    'oscar.apps.shipping',
+    'oscar.apps.catalogue',
+    'oscar.apps.catalogue.reviews',
+    'oscar.apps.partner',
+    'oscar.apps.basket',
+    'oscar.apps.payment',
+    'oscar.apps.offer',
+    'oscar.apps.order',
+    'oscar.apps.customer',
+    'oscar.apps.search',
+    'oscar.apps.voucher',
+    'oscar.apps.wishlists',
+    'oscar.apps.dashboard',
+    'oscar.apps.dashboard.reports',
+    'oscar.apps.dashboard.users',
+    'oscar.apps.dashboard.orders',
+    'oscar.apps.dashboard.catalogue',
+    'oscar.apps.dashboard.offers',
+    'oscar.apps.dashboard.partners',
+    'oscar.apps.dashboard.pages',
+    'oscar.apps.dashboard.ranges',
+    'oscar.apps.dashboard.reviews',
+    'oscar.apps.dashboard.vouchers',
+    'oscar.apps.dashboard.communications',
+    'oscar.apps.dashboard.shipping',
+
+    # 3rd-party apps that oscar depends on
+    'widget_tweaks',
+    'haystack',
+    'treebeard',
+    'sorl.thumbnail',
+    'django_tables2',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -35,6 +78,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'oscar.apps.basket.middleware.BasketMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'digital_store.urls'
@@ -50,6 +95,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'oscar.apps.search.context_processors.search_form',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.customer.notifications.context_processors.notifications',
+                'oscar.core.context_processors.metadata',
             ],
         },
     },
@@ -106,3 +155,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+OSCAR_THUMBNAILER = 'oscar.core.thumbnails.EasyThumbnails'
+
+AUTHENTICATION_BACKENDS = (
+    'oscar.apps.customer.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
