@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'oscar.apps.checkout',
     'oscar.apps.address',
     'oscar.apps.shipping',
-    'oscar.apps.catalogue',
     'oscar.apps.catalogue.reviews',
     'oscar.apps.partner',
     'oscar.apps.basket',
@@ -59,6 +58,7 @@ INSTALLED_APPS = [
     'oscar.apps.dashboard.vouchers',
     'oscar.apps.dashboard.communications',
     'oscar.apps.dashboard.shipping',
+    'apps.catalogue.apps.CatalogueConfig',
 
     # 3rd-party apps that oscar depends on
     'widget_tweaks',
