@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'haystack',
     'treebeard',
-    'sorl.thumbnail',
+    'easy_thumbnails',
     'django_tables2',
 ]
 
