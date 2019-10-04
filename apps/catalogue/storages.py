@@ -13,10 +13,10 @@ class DigitalProductStorage(FileSystemStorage):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._location = settings.DIGITAL_FILES_ROOT
+        self._location = settings.DIGITAL_PRODUCT_FILES_ROOT
 
     def _clear_cached_properties(self, setting, **kwargs):
-        if setting == 'DIGITAL_PRODUCTS_ROOT':
+        if setting == 'DIGITAL_PRODUCT_FILES_ROOT':
             self.__dict__.pop('base_location', None)
             self.__dict__.pop('location', None)
 
@@ -28,7 +28,7 @@ class DigitalProductStorage(FileSystemStorage):
 
     @cached_property
     def base_location(self):
-        return self._value_or_setting(self._location, settings.DIGITAL_FILES_ROOT)
+        return self._value_or_setting(self._location, settings.DIGITAL_PRODUCT_FILES_ROOT)
 
     def url(self, name):
         raise ValueError("This file is not accessible via a URL.")
