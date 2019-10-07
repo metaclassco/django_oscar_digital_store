@@ -9,7 +9,7 @@ class ProductFile(models.Model):
     date_created = models.DateTimeField(_("Date created"), auto_now_add=True, db_index=True)
     date_updated = models.DateTimeField(_("Date updated"), auto_now=True, db_index=True)
     file = models.FileField(storage=DigitalProductStorage())
-    checksum = models.CharField(max_length=150)
+    checksum = models.CharField(max_length=150, null=True, blank=True)
     size = models.BigIntegerField()
     mimetype = models.CharField(max_length=255)
 
