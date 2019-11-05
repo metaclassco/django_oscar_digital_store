@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'oscar.apps.search',
     'oscar.apps.voucher',
     'oscar.apps.wishlists',
-    'oscar.apps.dashboard',
+    'apps.dashboard.apps.DashboardConfig',
     'oscar.apps.dashboard.reports',
     'oscar.apps.dashboard.users',
     'oscar.apps.dashboard.orders',
@@ -87,7 +87,9 @@ ROOT_URLCONF = 'digital_store.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
