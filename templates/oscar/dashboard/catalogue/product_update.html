@@ -1,0 +1,75 @@
+{% extends 'oscar/dashboard/catalogue/product_update.html' %}
+{% load form_tags %}
+{% load i18n %}
+
+{% block tabs %}
+    <li class="active"><a href="#product_details" data-toggle="tab">{% trans 'Product details' %}</a></li>
+    {% if not parent %}
+        <li><a href="#product_category" data-toggle="tab">{% trans 'Categories' %}</a></li>
+    {% endif %}
+    {% if product_class.has_attributes %}
+        <li><a href="#product_attributes" data-toggle="tab">{% trans 'Attributes' %}</a></li>
+    {% endif %}
+    <li><a href="#product_images" data-toggle="tab">{% trans 'Images' %}</a></li>
+    {% if not product.is_parent %}
+        <li><a href="#product_stock" data-toggle="tab">{% trans 'Stock and pricing' %}</a></li>
+    {% endif %}
+    {% if user.is_staff and not parent %}
+        <li><a href="#child_products" data-toggle="tab">{% trans 'Variants' %}</a></li>
+    {% endif %}
+    {% if not parent %}
+        <li><a href="#product_recommended" data-toggle="tab">{% trans 'Upselling' %}</a></li>
+    {% endif %}
+    <li><a href="#product_files" data-toggle="tab">{% trans 'Files' %}</a></li>
+{% endblock tabs %}
+
+{% block stockrecords %}
+    {{ block.super }}
+    <div class="tab-pane" id="product_files">
+        <table class="table table-striped table-bordered">
+            <caption>{% trans "Product Files" %}</caption>
+            {{ product_file_formset.management_form }}
+            {{ product_file_formset.non_form_errors }}
+            <thead>
+                <tr>
+                    <th>{% trans "File" %}</th>
+                    <th>{% trans "Checksum" %}</th>
+                    <th>{% trans "Mimetype" %}</th>
+                    <th>{% trans "Delete?" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product_file_form in product_file_formset %}
+                    {% if product_file_form.non_field_errors %}
+                    <tr>
+                        <td colspan="2">
+                            {% for error in product_file_form.non_field_errors  %}
+                                <span class="error-block errorlist"><i class="icon-exclamation-sign"></i> {{ error }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td>
+                          {% if product_file_form.instance.file %}
+                              {{ product_file_form.instance.file.name }}
+                          {% else %}
+                              {% include "oscar/dashboard/partials/form_field.html" with field=product_file_form.file nolabel=True %}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {{ product_file_form.instance.checksum|default:"&mdash;" }}
+                        </td>
+                        <td>
+                          {{ product_file_form.instance.mimetype|default:"&mdash;" }}
+                        </td>
+                        <td>
+                            {% include "oscar/dashboard/partials/form_field.html" with field=product_file_form.id nolabel=True %}
+                            {% include "oscar/dashboard/partials/form_field.html" with field=product_file_form.DELETE nolabel=True %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock stockrecords %}
