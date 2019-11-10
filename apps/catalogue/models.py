@@ -7,7 +7,7 @@ from .storages import DigitalProductStorage
 
 
 class ProductClass(AbstractProductClass):
-    is_digital = models.BooleanField(default=False)
+    is_digital = models.BooleanField(_('Is digital?'), default=False)
 
 
 class ProductFile(models.Model):
