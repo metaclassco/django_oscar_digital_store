@@ -1,7 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from oscar.apps.catalogue.abstract_models import AbstractProductClass
+
 from .storages import DigitalProductStorage
+
+
+class ProductClass(AbstractProductClass):
+    is_digital = models.BooleanField(default=False)
 
 
 class ProductFile(models.Model):
