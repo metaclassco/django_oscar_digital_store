@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -18,6 +19,13 @@ class ProductFile(models.Model):
     checksum = models.CharField(max_length=150, null=True, blank=True)
     size = models.BigIntegerField()
     mimetype = models.CharField(max_length=255)
+
+
+class DownloadAttempt(models.Model):
+    date_created = models.DateTimeField(auto_now_add=True)
+    product_file = models.ForeignKey('ProductFile', on_delete=models.CASCADE)
+    ip_address = models.GenericIPAddressField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
 
 from oscar.apps.catalogue.models import *  # noqa isort:skip
