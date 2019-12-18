@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'apps.dashboard.apps.DashboardConfig',
     'oscar.apps.dashboard.reports',
     'oscar.apps.dashboard.users',
-    'oscar.apps.dashboard.orders',
+    'apps.order.apps.OrderConfig',
     'apps.dashboard.catalogue.apps.CatalogueDashboardConfig',
     'oscar.apps.dashboard.offers',
     'oscar.apps.dashboard.partners',
