@@ -19,6 +19,7 @@ class ProductFile(models.Model):
     checksum = models.CharField(max_length=150, null=True, blank=True)
     size = models.BigIntegerField()
     mimetype = models.CharField(max_length=255)
+    filename = models.CharField(max_length=255)
 
 
 class DownloadAttempt(models.Model):
