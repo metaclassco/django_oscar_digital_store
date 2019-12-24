@@ -8,4 +8,4 @@ from .models import ProductFile
 def determine_product_file_meta(sender, instance, *args, **kwargs):
     instance.size = instance.file.size
     instance.mimetype = instance.file._file.content_type
-    instance.name = instance.file.name
+    instance.filename = instance.file.name
