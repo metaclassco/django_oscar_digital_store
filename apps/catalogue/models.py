@@ -21,6 +21,9 @@ class ProductFile(models.Model):
     mimetype = models.CharField(max_length=255)
     filename = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.filename
+
 
 class DownloadAttempt(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
