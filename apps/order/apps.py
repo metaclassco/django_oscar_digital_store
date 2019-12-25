@@ -8,6 +8,7 @@ class OrderConfig(apps.OrderConfig):
     name = 'apps.order'
 
     def ready(self):
+        from . import receivers  # noqa
         super().ready()
         self.download_order_product_files = get_class('order.views', 'DownloadOrderProductFiles')
 

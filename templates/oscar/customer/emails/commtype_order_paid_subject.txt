@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktrans with number=order.number %}Your order {{ number }} is paid{% endblocktrans %}

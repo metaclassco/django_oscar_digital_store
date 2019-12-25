@@ -1,0 +1,53 @@
+{% extends "oscar/customer/emails/base.html" %}
+{% load currency_filters i18n %}
+
+{% block tbody %}
+<tr>
+    <td class="content-block">
+        <p xmlns="http://www.w3.org/1999/html">{% trans 'Hello,' %}</p>
+        <p>{% blocktrans with order_number=order.number %}We have received your payment for the order {{ order_number }}, thank you.{% endblocktrans %}</p>
+    </td>
+</tr>
+
+{% if order.has_digital_products %}
+<tr>
+    <td class="content-block">
+        <table class="order">
+            <tbody><tr>
+                <td>{% trans 'Digital products of your order:' %}</td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="order-items" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            {% for line in order.get_lines_with_digital_products %}
+                                <tr>
+                                    <td><b>{{ line.title }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                      {% with product=line.product %}
+                                          Files:<br>
+                                          {% for file in product.files.all %}
+                                              {{ file.filename }} &mdash; {{ file.size|filesizeformat }}<br>
+                                          {% endfor %}
+                                      {% endwith %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </td>
+            </tr>
+        </tbody></table>
+    </td>
+</tr>
+<tr>
+    <td class="content-block">
+        <a href="http://{{ site.domain }}{% url 'download_order_files' order.number %}" class="btn-primary">Download order files</a>
+    </td>
+</tr>
+{% endif %}
+
+{% endblock %}
