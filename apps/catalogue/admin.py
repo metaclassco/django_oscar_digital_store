@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django.forms.widgets import FileInput
 
-from .models import ProductFile
+from .models import DownloadAttempt, ProductFile
 
 
 class ProductFileAdmin(admin.ModelAdmin):
@@ -11,6 +11,7 @@ class ProductFileAdmin(admin.ModelAdmin):
     }
 
 
+admin.site.register(DownloadAttempt)
 admin.site.register(ProductFile, ProductFileAdmin)
 
 
