@@ -19,4 +19,4 @@ class ProductFileForm(forms.ModelForm):
 
 class ProductClassForm(CoreProductClassForm):
     class Meta(CoreProductClassForm.Meta):
-        fields = ['name', 'requires_shipping', 'track_stock', 'options', 'is_digital']
+        fields = ['name', 'requires_shipping', 'track_stock', 'options', 'is_downloadable']

@@ -15,7 +15,7 @@ class Selector(object):
 
 class Default(CoreDefault):
     def availability_policy(self, product, stockrecord):
-        if product.product_class.is_digital and product.files.count() == 0:
+        if product.product_class.is_downloadable and product.files.count() == 0:
             return DigitalProductUnavailable()
 
         return super().availability_policy(product, stockrecord)

@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -8,7 +7,7 @@ from .storages import DigitalProductStorage
 
 
 class ProductClass(AbstractProductClass):
-    is_digital = models.BooleanField(_('Is digital?'), default=False)
+    is_downloadable = models.BooleanField(_('Is downloadable?'), default=False)
 
 
 class ProductFile(models.Model):
