@@ -12,6 +12,7 @@ from django.views.generic.base import View
 from oscar.core.loading import get_model
 
 
+DownloadAttempt = get_model('order', 'DownloadAttempt')
 Order = get_model('order', 'Order')
 
 
@@ -26,6 +27,7 @@ class DownloadOrderProductFiles(LoginRequiredMixin, View):
         if not order.is_paid:
             raise PermissionDenied(_('Order files will be available for download after the order is paid.'))
 
+        DownloadAttempt.objects.create(user=self.request.user, order=order, ip_address=request.META.get('REMOTE_ADDR'))
         f = BytesIO()
         zf = zipfile.ZipFile(f, "w")
         response = FileResponse(f, content_type='application/zip')
