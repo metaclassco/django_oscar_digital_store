@@ -25,11 +25,4 @@ class ProductFile(models.Model):
         return self.filename
 
 
-class DownloadAttempt(models.Model):
-    date_created = models.DateTimeField(auto_now_add=True)
-    product_file = models.ForeignKey('ProductFile', on_delete=models.CASCADE)
-    ip_address = models.GenericIPAddressField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-
-
 from oscar.apps.catalogue.models import *  # noqa isort:skip
