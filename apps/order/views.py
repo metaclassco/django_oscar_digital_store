@@ -2,6 +2,7 @@ from io import BytesIO
 import os
 import zipfile
 
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import FileResponse
@@ -26,6 +27,10 @@ class DownloadOrderProductFiles(LoginRequiredMixin, View):
 
         if not order.is_paid:
             raise PermissionDenied(_('Order files will be available for download after the order is paid.'))
+
+        download_attempts = DownloadAttempt.objects.filter(user=self.request.user, order=order)
+        if download_attempts.count() == settings.OSCAR_MAX_ORDER_DOWNLOAD_ATTEMPTS:
+            raise PermissionDenied(_('Download attempts for this order has exceeded.'))
 
         DownloadAttempt.objects.create(user=self.request.user, order=order, ip_address=request.META.get('REMOTE_ADDR'))
         f = BytesIO()
