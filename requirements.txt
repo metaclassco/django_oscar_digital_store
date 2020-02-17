@@ -1,4 +1,4 @@
-django==2.2.8
+django==2.2.10
 django_oscar==2.0.4
 easy-thumbnails==2.6
 pycountry==19.8.18
