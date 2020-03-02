@@ -36,7 +36,7 @@
                 <thead>
                     <tr>
                         <th>{% trans "File" %}</th>
-                        <th>{% trans "Checksum" %}</th>
+                        <th>{% trans "Size" %}</th>
                         <th>{% trans "Mimetype" %}</th>
                         <th>{% trans "Delete?" %}</th>
                     </tr>
@@ -61,7 +61,7 @@
                               {% endif %}
                             </td>
                             <td>
-                              {{ product_file_form.instance.checksum|default:"&mdash;" }}
+                              {{ product_file_form.instance.size|filesizeformat|default:"&mdash;" }}
                             </td>
                             <td>
                               {{ product_file_form.instance.mimetype|default:"&mdash;" }}
